@@ -1,0 +1,86 @@
+<div class="ef-header">
+  <div class="ef-header-left">
+    <img src="https://www.efact.pe/assets/imagenes/logo-efact-color.svg" alt="Efact Logo" class="ef-logo" />
+    <span class="ef-env">Efact-DEV</span>
+  </div>
+
+  <div class="ef-header-right">
+    <span>¿Necesita ayuda?</span>
+    <span class="ef-user">USUARIO</span>
+    <span class="ef-icon">👤</span>
+    <button class="logout-btn" (click)="logout()">
+      Cerrar sesión
+        </button>
+
+  </div>
+</div>
+
+<!-- ==== TABS SIMULADOS ==== -->
+<div class="ef-tabs">
+  <div class="ef-tab active">Documento</div>
+  <div class="ef-tab">Crear</div>
+  <div class="ef-tab">Convertir a Factura Negociable</div>
+</div>
+
+<!-- ==== SUBHEADER ==== -->
+<div class="ef-subheader">
+  <div>
+    <strong>ID Documento:</strong> {{ ticket }}
+  </div>
+
+  <div class="ef-download-box">
+    <span>Descargar:</span>
+
+    <button class="btn pdf" (click)="loadPdf()">PDF</button>
+    <button class="btn xml" (click)="loadXml()">XML</button>
+    <button class="btn cdr" (click)="loadCdr()">CDR</button>
+  </div>
+</div>
+
+<!-- ==== CONTENEDOR PDF ==== -->
+<div class="ef-viewer-container">
+  <div class="ef-viewer-inner">
+    <!-- Lateral izquierdo tipo miniatura / panel -->
+    <aside class="ef-sidebar">
+      <div class="ef-sidebar-header">
+        <span class="ef-menu-icon">☰</span>
+        <span class="ef-doc-code"> {{ ticket }} </span>
+      </div>
+
+      <div class="ef-thumbnail-wrapper">
+        <div class="ef-thumbnail">
+          <span class="ef-thumb-label">PDF</span>
+        </div>
+        <span class="ef-page-number">1</span>
+      </div>
+    </aside>
+
+    <!-- Área principal del visor -->
+    <section class="ef-main-viewer">
+
+  <!-- === PDF Viewer === -->
+  <ng-container *ngIf="pdfUrl">
+    <iframe [src]="pdfUrl" class="ef-viewer"></iframe>
+  </ng-container>
+
+  <!-- === XML Viewer === -->
+  <ng-container *ngIf="xmlContent">
+    <pre class="xml-viewer">{{ xmlContent }}</pre>
+  </ng-container>
+
+  <!-- === CDR Viewer === -->
+  <ng-container *ngIf="cdrContent">
+    <pre class="xml-viewer">{{ cdrContent }}</pre>
+  </ng-container>
+
+  <!-- === Empty default view === -->
+  <ng-container *ngIf="!pdfUrl && !xmlContent && !cdrContent">
+    <div class="ef-empty">
+      <p>Seleccione un formato (PDF/XML/CDR) para visualizar el comprobante.</p>
+    </div>
+  </ng-container>
+
+</section>
+
+  </div>
+</div>

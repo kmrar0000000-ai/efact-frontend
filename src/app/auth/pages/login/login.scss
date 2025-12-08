@@ -1,0 +1,121 @@
+/* ====== Paleta corporativa EFACT ====== */
+$efact-pink: #e91e63;
+$efact-pink-dark: #c2185b;
+$efact-blue: #0077c8;
+$efact-gray-dark: #333333;
+$efact-gray: #6b7280;
+$efact-bg: #f7f7f7;
+$efact-white: #ffffff;
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: radial-gradient(circle at top left, #ffe4ef 0, $efact-bg 40%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background-color: $efact-white;
+  border-radius: 0.9rem;
+  padding: 2.1rem 2.4rem;
+  box-shadow:
+    0 18px 25px -10px rgba(0, 0, 0, 0.18),
+    0 4px 8px -4px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid $efact-pink;
+}
+
+.auth-header h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: $efact-pink-dark;
+}
+
+.auth-header p {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: $efact-gray;
+}
+
+.auth-form {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: $efact-gray-dark;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+  background-color: #f9fafb;
+}
+
+.form-group input:focus {
+  border-color: $efact-pink;
+  box-shadow: 0 0 0 1px rgba($efact-pink, 0.25);
+  background-color: $efact-white;
+}
+
+button[type='submit'] {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: linear-gradient(to right, $efact-pink, $efact-pink-dark);
+  color: $efact-white;
+  cursor: pointer;
+  transition:
+    opacity 0.15s ease,
+    transform 0.05s ease,
+    box-shadow 0.15s ease;
+  box-shadow: 0 8px 18px -8px rgba(233, 30, 99, 0.6);
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+button:not([disabled]):hover {
+  opacity: 0.92;
+}
+
+button:not([disabled]):active {
+  transform: scale(0.98);
+}
+
+.error {
+  margin-top: 0.25rem;
+  color: #b91c1c;
+  font-size: 0.8rem;
+}
+
+.auth-footnote {
+  margin-top: 1.5rem;
+  font-size: 0.78rem;
+  color: $efact-gray;
+  text-align: center;
+}
