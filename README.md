@@ -1,59 +1,248 @@
-# EfactFrontend
+📄 EFACT Frontend – Visor de Documentos (PDF, XML, CDR)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.6.
+Aplicación Angular Standalone que permite autenticación mediante OAuth2, consumo de la API de EFACT y visualización de comprobantes electrónicos (PDF, XML y CDR).
 
-## Development server
+Implementa:
 
-To start a local development server, run:
+✔ Login con OAuth2
 
-```bash
-ng serve
-```
+✔ Guard y servicio de autenticación
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+✔ Proxy para evitar CORS
 
-## Code scaffolding
+✔ Visor de documentos con estilo corporativo EFACT
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+✔ Panel lateral tipo miniatura
 
-```bash
-ng generate component component-name
-```
+✔ Descarga / visualización directa
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+✔ Cierre de sesión seguro
 
-```bash
-ng generate --help
-```
+📌 1. Tecnologías utilizadas
 
-## Building
+Tecnología	Versión
 
-To build the project run:
+Angular Standalone	17+
 
-```bash
+TypeScript	5+
+
+RxJS	7+
+
+HTML / SCSS	—
+
+OAuth2 Password Grant	—
+
+📁 2. Estructura principal del proyecto
+
+app/auth/services/auth.service.ts
+
+app/auth/guards/auth.guard.ts
+
+app/auth/pages/login/login.component.ts
+
+app/auth/pages/login/login.html
+
+app/auth/pages/login/login.scss
+
+app/documents/documents.component.ts
+
+app/documents/documents.component.html
+
+app/documents/documents.component.scss
+
+app/app.routes.ts
+
+app/app.config.ts
+
+app/app.ts / app.html / app.scss
+
+proxy.conf.json
+
+
+🚀 3. Cómo iniciar el proyecto
+Instalar dependencias
+npm install
+
+Ejecutar con proxy (recomendado)
+npm start
+
+
+Este comando activa:
+
+Angular Dev Server (ng serve)
+
+Proxy hacia la API real de EFACT
+
+URL de acceso:
+
+http://localhost:4200/login
+
+🔐 4. Autenticación OAuth2
+
+El login utiliza el endpoint:
+
+POST /api-efact-ose/oauth/token
+
+
+Se envía:
+
+grant_type=password
+
+username
+
+password
+
+Authorization: Basic base64(client:secret)
+
+El token se guarda en localStorage con la llave:
+
+efact_access_token
+
+
+El guard redirige a /login si no existe token.
+
+📄 5. Consumo y visualización de documentos
+
+El módulo de documentos permite cargar:
+
+▶ PDF
+
+Se obtiene como Blob, se convierte en URL segura y se muestra en un <iframe>.
+
+▶ XML
+
+Se muestra en formato legible usando <pre class="xml-viewer">.
+
+▶ CDR
+
+Funciona igual que XML (respuesta textual).
+
+Endpoints consumidos:
+
+GET /api-efact-ose/v1/pdf/:ticket
+GET /api-efact-ose/v1/xml/:ticket
+GET /api-efact-ose/v1/cdr/:ticket
+
+🎨 6. Interfaz corporativa EFACT
+
+La interfaz replica la estética general de EFACT Web:
+
+✔ Header con logo
+✔ Tabs superiores (Documento / Crear / Convertir a Factura Negociable)
+✔ Panel lateral negro tipo visor PDF
+✔ Área principal oscura
+✔ Botones PDF, XML y CDR con colores corporativos
+✔ Botón moderno para "Cerrar sesión"
+
+El archivo styles.scss define la paleta central:
+
+$efact-pink: #e61a73;
+$efact-pink-soft: #ff6ba3;
+$efact-blue: #0097d7;
+$efact-dark: #111827;
+$efact-gray: #6b7280;
+$efact-bg: #f9fafb;
+
+🧩 7. Explicación de las fases del proyecto
+🟣 Fase 0 – Configuración base
+
+Creación del proyecto Angular Standalone.
+
+Configuración de rutas, appConfig y bootstrap.
+
+Estilos globales y paleta corporativa EFACT.
+
+Configuración de environment y proxy.
+
+Archivos clave:
+
+main.ts
+
+app.config.ts
+
+app.routes.ts
+
+environment.ts
+
+styles.scss
+
+proxy.conf.json
+
+🟣 Fase 1 – Autenticación
+
+Implementación de login usando OAuth2 Password Grant.
+
+Creación de AuthService.
+
+Guard para proteger /documents.
+
+Diseño moderno del formulario.
+
+Archivos clave:
+
+auth.service.ts
+
+auth.guard.ts
+
+login.component.ts / html / scss
+
+🟣 Fase 2 – Seguridad aplicada
+
+Botón “Cerrar sesión” que limpia token y redirige.
+
+Header corporativo con usuario y estilo profesional.
+
+Control de navegación.
+
+Archivos clave:
+
+logout() en AuthService
+
+logout() en DocumentsComponent
+
+Header HTML + SCSS
+
+🟣 Fase 3 – Visor de documentos
+
+Consumo de PDF, XML, CDR desde API EFACT.
+
+Conversión segura de PDF (Blob → SafeResourceUrl).
+
+Visualización estilizada con panel lateral.
+
+Vista vacía, carga y errores.
+
+Archivos clave:
+
+documents.service.ts
+
+documents.component.*
+
+🌐 8. Configuración del Proxy
+
+Archivo: proxy.conf.json
+
+{
+  "/api-efact-ose": {
+    "target": "https://odin-dev.efact.pe",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
+
+
+Ejecutar Angular con:
+
+npm start
+
+🧪 9. Pruebas recomendadas
+Caso	Resultado esperado
+Login con credenciales válidas	Redirige a /documents
+Login inválido	Mensaje de error
+Acceder a /documents sin token	Redirige a /login
+Ver PDF	Se visualiza en iframe
+Ver XML / CDR	Se muestra en formato texto blanco
+Cerrar sesión	Limpia token + redirige a login
+📦 10. Build para producción
 ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
