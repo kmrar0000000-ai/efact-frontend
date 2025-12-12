@@ -246,3 +246,14 @@ Ver XML / CDR	Se muestra en formato texto blanco
 Cerrar sesión	Limpia token + redirige a login
 📦 10. Build para producción
 ng build
+
+Pueden correr 2 maneras 
+
+Usuario :20111193035
+Contraseña : 61a77b6fda77c3a2d6b28930546c86d7f749ccf0bd4bad1e1192f13bb59f0f30
+
+ng serve -o
+ng serve --proxy-config proxy.conf.json
+
+<img width="1919" height="1003" alt="image" src="https://github.com/user-attachments/assets/0d831c11-2163-4bfc-a866-b36ba7f604a1" />
+
